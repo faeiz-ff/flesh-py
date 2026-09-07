@@ -104,6 +104,19 @@ class Parser:
         asts = self.expression_list()
         return ast.Begin(asts)
 
+    def lambda_expr(self) -> ast.Lambda:
+        self.consume(TokenType.LParen)
+
+        params: List[Token] = []
+        while not self.check(TokenType.RParen):
+            params.append(self.tokens[self.idx])
+            self.consume(TokenType.ID)
+
+        self.consume(TokenType.RParen)
+
+        body = ast.Begin(self.expression_list())
+        return ast.Lambda(params, body)
+
     def specials(self) -> Optional[ast.AST]:
         """Parse a special-form (without processing outside parentheses)"""
         curr = self.curr()
@@ -120,6 +133,8 @@ class Parser:
                 return self.cond()
             case TokenType.Begin:
                 return self.begin()
+            case TokenType.Lambda:
+                return self.lambda_expr()
 
         self.idx -= 1  # no keyword, go back
 
