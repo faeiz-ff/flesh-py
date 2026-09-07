@@ -1,2 +1,6 @@
 .venv/
 .git/
+
+src/fleshpy/__pycache__
+test/__pycache__
+.pytest_cache/
