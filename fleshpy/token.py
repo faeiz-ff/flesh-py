@@ -22,3 +22,9 @@ class Token:
         self.lexeme = lexeme
         self.index = index
         self.ty = ty
+
+    def __repr__(self) -> str:
+        return self.__str__()
+
+    def __str__(self) -> str:
+        return f"Token {{ {self.lexeme}, {self.index}, {self.ty} }}"
