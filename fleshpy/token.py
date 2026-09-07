@@ -1,4 +1,3 @@
-
 from enum import Enum
 
 
@@ -17,6 +16,26 @@ class TokenType(Enum):
     Block = 11,
     EOF = 12,
     Else = 13,
+
+    def __repr__(self) -> str:
+        return self.__str__()
+
+    def __str__(self) -> str:
+        match self:
+            case TokenType.LParen: return "("
+            case TokenType.RParen: return ")"
+            case TokenType.ID: return "Identifier"
+            case TokenType.Define: return "Define"
+            case TokenType.Lambda: return "("
+            case TokenType.Let: return "Let"
+            case TokenType.If: return "If"
+            case TokenType.Integer: return "Integer"
+            case TokenType.Float: return "Float"
+            case TokenType.String: return "String"
+            case TokenType.Cond: return "Cond"
+            case TokenType.Block: return "Block"
+            case TokenType.EOF: return "EOF"
+            case TokenType.Else: return "Else"
 
 
 class Token:
