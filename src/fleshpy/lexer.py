@@ -1,5 +1,6 @@
-from typing import Optional
+from typing import List, Optional
 
+from fleshpy.error import FleshSyntaxError
 from fleshpy.token import Token, TokenType
 
 
@@ -64,8 +65,37 @@ class Lexer:
             self.idx += 1
             curr = self.curr()
 
-    def lex(self, text: str) -> list[Token]:
-        tokens: list[Token] = []
+    def string(self) -> Token:
+        self.idx += 1  # consume the first quote
+        begin = self.idx
+
+        curr = self.curr()
+        lexeme: List[str] = []
+        while curr is not None and curr != '"':
+
+            if curr == "\\":  # escaped string
+                self.idx += 1
+                curr = self.curr()
+                if curr is None:
+                    break
+
+            lexeme.append(curr)
+            self.idx += 1
+            curr = self.curr()
+
+        if curr != '"':
+            raise FleshSyntaxError(
+                self.text,
+                self.idx,
+                "Expecting a closing double quote to end string"
+            )
+
+        self.idx += 1  # consume the second quote
+
+        return Token("".join(lexeme), begin, TokenType.String)
+
+    def lex(self, text: str) -> List[Token]:
+        tokens: List[Token] = []
         self.idx = 0
         self.text = text
 
@@ -79,6 +109,8 @@ class Lexer:
                 tokens.append(Token(lexeme, self.idx, TokenType.LParen))
             elif lexeme == ')':
                 tokens.append(Token(lexeme, self.idx, TokenType.RParen))
+            elif lexeme == '"':
+                tokens.append(self.string())
             else:
                 tokens.append(self.key_or_id())
             self.idx += 1

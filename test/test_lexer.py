@@ -40,6 +40,15 @@ def test_symbols():
     assert tokens[1].ty == TokenType.RParen
 
 
+def test_string():
+    lexer = Lexer()
+
+    tokens = lexer.lex('"This is a string!" "\\"escaped\\""')
+    assert tokens[0].ty == TokenType.String
+    assert tokens[1].ty == TokenType.String
+    assert tokens[1].lexeme == '"escaped"'
+
+
 def test_program():
     lexer = Lexer()
 
