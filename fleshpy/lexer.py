@@ -48,6 +48,10 @@ class Lexer:
 
         lexeme = self.text[begin:self.idx]
 
+        # lex forwards the self.idx after every token
+        # so we need to decrement it in here
+        self.idx -= 1
+
         tok = Token(lexeme, begin, TokenType.ID)
         match lexeme:
             case 'define': tok.ty = TokenType.Define
