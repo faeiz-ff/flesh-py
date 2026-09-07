@@ -60,6 +60,7 @@ class Lexer:
             case 'cond': tok.ty = TokenType.Cond
             case 'block': tok.ty = TokenType.Block
             case 'let': tok.ty = TokenType.Let
+            case 'else': tok.ty = TokenType.Else
 
         return tok
 
