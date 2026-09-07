@@ -15,7 +15,6 @@ class AST(ABC):
 
 class Program(AST):
     def __init__(self, exprs: List[AST]):
-        self.name = "Program"
         self.exprs = exprs
 
     def accept[T](self, visitor: Visitor[T]) -> T:
@@ -24,7 +23,6 @@ class Program(AST):
 
 class IntLiteral(AST):
     def __init__(self, token: Token):
-        self.name = "IntLiteral"
         self.token = token
 
     def accept[T](self, visitor: Visitor[T]) -> T:
@@ -33,7 +31,6 @@ class IntLiteral(AST):
 
 class FloatLiteral(AST):
     def __init__(self, token: Token):
-        self.name = "FloatLiteral"
         self.token = token
 
     def accept[T](self, visitor: Visitor[T]) -> T:
@@ -42,7 +39,6 @@ class FloatLiteral(AST):
 
 class StringLiteral(AST):
     def __init__(self, token: Token):
-        self.name = "StringLiteral"
         self.token = token
 
     def accept[T](self, visitor: Visitor[T]) -> T:
@@ -51,7 +47,6 @@ class StringLiteral(AST):
 
 class BooleanLiteral(AST):
     def __init__(self, token: Token):
-        self.name = "BooleanLiteral"
         self.token = token
 
     def accept[T](self, visitor: Visitor[T]) -> T:
@@ -59,8 +54,7 @@ class BooleanLiteral(AST):
 
 
 class Nil(AST):
-    def __init__(self):
-        self.name = "Nil"
+    def __init__(self): pass
 
     def accept[T](self, visitor: Visitor[T]) -> T:
         return visitor.visit_nil(self)
@@ -68,7 +62,6 @@ class Nil(AST):
 
 class Identifier(AST):
     def __init__(self, token: Token):
-        self.name = "Identifier"
         self.token = token
 
     def accept[T](self, visitor: Visitor[T]) -> T:
@@ -77,7 +70,6 @@ class Identifier(AST):
 
 class Definition(AST):
     def __init__(self, token: Token, expr: AST):
-        self.name = "Definition"
         self.token = token
         self.expr = expr
 
@@ -87,7 +79,6 @@ class Definition(AST):
 
 class If(AST):
     def __init__(self, cond: AST, then_expr: AST, else_expr: AST):
-        self.name = "If"
         self.cond = cond
         self.then_expr = then_expr
         self.else_expr = else_expr
@@ -98,7 +89,6 @@ class If(AST):
 
 class Cond(AST):
     def __init__(self, arms: List[Tuple[AST, AST]], else_expr: AST | None):
-        self.name = "Cond"
         self.arms = arms
         self.else_expr = else_expr
 
@@ -108,7 +98,6 @@ class Cond(AST):
 
 class Begin(AST):
     def __init__(self, expr_list: List[AST]):
-        self.name = "Begin"
         self.expr_list = expr_list
 
     def accept[T](self, visitor: Visitor[T]) -> T:
@@ -117,7 +106,6 @@ class Begin(AST):
 
 class Lambda(AST):
     def __init__(self, args: List[Token], body: AST):
-        self.name = "Lambda"
         self.args = args
         self.body = body
 
@@ -127,7 +115,6 @@ class Lambda(AST):
 
 class Application(AST):
     def __init__(self, fun: AST, args: List[AST]):
-        self.name = "Application"
         self.fun = fun
         self.args = args
 
