@@ -69,10 +69,11 @@ class Definition(AST):
 
 
 class If(AST):
-    def __init__(self, cond: AST, expr: AST):
+    def __init__(self, cond: AST, then_expr: AST, else_expr: AST):
         self.name = "If"
         self.cond = cond
-        self.expr = expr
+        self.then_expr = then_expr
+        self.else_expr = else_expr
 
     def accept[T](self, visitor: Visitor[T]) -> T:
         return visitor.visit_if(self)
