@@ -100,6 +100,10 @@ class Parser:
         node.arms = arms  # make sure that the arms is the recent one
         return node
 
+    def begin(self) -> ast.Begin:
+        asts = self.expression_list()
+        return ast.Begin(asts)
+
     def specials(self) -> Optional[ast.AST]:
         """Parse a special-form (without processing outside parentheses)"""
         curr = self.curr()
@@ -114,6 +118,8 @@ class Parser:
                 return self.if_expr()
             case TokenType.Cond:
                 return self.cond()
+            case TokenType.Begin:
+                return self.begin()
 
         self.idx -= 1  # no keyword, go back
 
