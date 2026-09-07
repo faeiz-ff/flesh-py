@@ -63,6 +63,7 @@ class Lexer:
             case 'else': tok.ty = TokenType.Else
             case '#t': tok.ty = TokenType.Truth
             case '#f': tok.ty = TokenType.Falsity
+            case 'nil': tok.ty = TokenType.Nil
 
         return tok
 

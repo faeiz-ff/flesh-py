@@ -35,9 +35,10 @@ def test_keywords():
 def test_symbols():
     lexer = Lexer()
 
-    tokens = lexer.lex("()")
+    tokens = lexer.lex("(nil)")
     assert tokens[0].ty == TokenType.LParen
-    assert tokens[1].ty == TokenType.RParen
+    assert tokens[1].ty == TokenType.Nil
+    assert tokens[2].ty == TokenType.RParen
 
 
 def test_string():

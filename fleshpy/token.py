@@ -18,6 +18,7 @@ class TokenType(Enum):
     Else = 13,
     Truth = 14,
     Falsity = 15,
+    Nil = 16,
 
     def __repr__(self) -> str:
         return self.__str__()
@@ -40,6 +41,7 @@ class TokenType(Enum):
             case TokenType.Else: return "Else"
             case TokenType.Truth: return "True"
             case TokenType.Falsity: return "False"
+            case TokenType.Nil: return "Nil"
 
 
 class Token:

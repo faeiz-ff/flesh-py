@@ -58,6 +58,14 @@ class BooleanLiteral(AST):
         return visitor.visit_boolean_literal(self)
 
 
+class Nil(AST):
+    def __init__(self):
+        self.name = "Nil"
+
+    def accept[T](self, visitor: Visitor[T]) -> T:
+        return visitor.visit_nil(self)
+
+
 class Identifier(AST):
     def __init__(self, token: Token):
         self.name = "Identifier"
