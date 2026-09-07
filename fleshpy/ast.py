@@ -80,9 +80,10 @@ class If(AST):
 
 
 class Cond(AST):
-    def __init__(self, arms: List[Tuple[AST, AST]]):
+    def __init__(self, arms: List[Tuple[AST, AST]], else_expr: AST | None):
         self.name = "Cond"
         self.arms = arms
+        self.else_expr = else_expr
 
     def accept[T](self, visitor: Visitor[T]) -> T:
         return visitor.visit_cond(self)
