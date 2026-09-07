@@ -113,6 +113,15 @@ class Lambda(AST):
         return visitor.visit_lambda(self)
 
 
+class Let(AST):
+    def __init__(self, defs: List[Tuple[Token, AST]], body: AST):
+        self.defs = defs
+        self.body = body
+
+    def accept[T](self, visitor: Visitor[T]) -> T:
+        return visitor.visit_let(self)
+
+
 class Application(AST):
     def __init__(self, fun: AST, args: List[AST]):
         self.fun = fun
