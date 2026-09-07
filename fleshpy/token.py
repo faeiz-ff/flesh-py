@@ -13,7 +13,7 @@ class TokenType(Enum):
     Float = 8,
     String = 9,
     Cond = 10,
-    Block = 11,
+    Begin = 11,
     EOF = 12,
     Else = 13,
 
@@ -33,7 +33,7 @@ class TokenType(Enum):
             case TokenType.Float: return "Float"
             case TokenType.String: return "String"
             case TokenType.Cond: return "Cond"
-            case TokenType.Block: return "Block"
+            case TokenType.Begin: return "Begin"
             case TokenType.EOF: return "EOF"
             case TokenType.Else: return "Else"
 

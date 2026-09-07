@@ -88,13 +88,13 @@ class Cond(AST):
         return visitor.visit_cond(self)
 
 
-class Block(AST):
+class Begin(AST):
     def __init__(self, expr_list: List[AST]):
-        self.name = "Block"
+        self.name = "Begin"
         self.expr_list = expr_list
 
     def accept[T](self, visitor: Visitor[T]) -> T:
-        return visitor.visit_block(self)
+        return visitor.visit_begin(self)
 
 
 class Lambda(AST):

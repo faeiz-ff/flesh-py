@@ -23,10 +23,10 @@ def test_number_float():
 def test_keywords():
     lexer = Lexer()
 
-    tokens = lexer.lex("if cond block let define lambda")
+    tokens = lexer.lex("if cond begin let define lambda")
     assert tokens[0].ty == TokenType.If
     assert tokens[1].ty == TokenType.Cond
-    assert tokens[2].ty == TokenType.Block
+    assert tokens[2].ty == TokenType.Begin
     assert tokens[3].ty == TokenType.Let
     assert tokens[4].ty == TokenType.Define
     assert tokens[5].ty == TokenType.Lambda
