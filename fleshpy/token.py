@@ -1,24 +1,24 @@
-from enum import Enum
+from enum import Enum, auto
 
 
 class TokenType(Enum):
-    LParen = 0,
-    RParen = 1,
-    ID = 2,
-    Define = 3,
-    Lambda = 4,
-    Let = 5,
-    If = 6,
-    Integer = 7,
-    Float = 8,
-    String = 9,
-    Cond = 10,
-    Begin = 11,
-    EOF = 12,
-    Else = 13,
-    Truth = 14,
-    Falsity = 15,
-    Nil = 16,
+    LParen = auto(),
+    RParen = auto(),
+    ID = auto(),
+    Define = auto(),
+    Lambda = auto(),
+    Let = auto(),
+    If = auto(),
+    Integer = auto(),
+    Float = auto(),
+    String = auto(),
+    Cond = auto(),
+    Begin = auto(),
+    EOF = auto(),
+    Else = auto(),
+    Truth = auto(),
+    Falsity = auto(),
+    Nil = auto(),
 
     def __repr__(self) -> str:
         return self.__str__()
