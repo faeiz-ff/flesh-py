@@ -16,6 +16,8 @@ class TokenType(Enum):
     Begin = 11,
     EOF = 12,
     Else = 13,
+    Truth = 14,
+    Falsity = 15,
 
     def __repr__(self) -> str:
         return self.__str__()
@@ -36,6 +38,8 @@ class TokenType(Enum):
             case TokenType.Begin: return "Begin"
             case TokenType.EOF: return "EOF"
             case TokenType.Else: return "Else"
+            case TokenType.Truth: return "True"
+            case TokenType.Falsity: return "False"
 
 
 class Token:

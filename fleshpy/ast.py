@@ -49,6 +49,15 @@ class StringLiteral(AST):
         return visitor.visit_string_literal(self)
 
 
+class BooleanLiteral(AST):
+    def __init__(self, token: Token):
+        self.name = "BooleanLiteral"
+        self.token = token
+
+    def accept[T](self, visitor: Visitor[T]) -> T:
+        return visitor.visit_boolean_literal(self)
+
+
 class Identifier(AST):
     def __init__(self, token: Token):
         self.name = "Identifier"

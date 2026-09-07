@@ -49,6 +49,14 @@ def test_string():
     assert tokens[1].lexeme == '"escaped"'
 
 
+def test_boolean():
+    lexer = Lexer()
+
+    tokens = lexer.lex("#t #f")
+    assert tokens[0].ty == TokenType.Truth
+    assert tokens[1].ty == TokenType.Falsity
+
+
 def test_program():
     lexer = Lexer()
 
