@@ -159,6 +159,9 @@ class Parser:
             case TokenType.ID:
                 self.idx += 1
                 return ast.Identifier(curr)
+            case TokenType.Nil:
+                self.idx += 1
+                return ast.Nil()
             case TokenType.Truth | TokenType.Falsity:
                 self.idx += 1
                 return ast.BooleanLiteral(curr)
