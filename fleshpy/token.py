@@ -15,6 +15,7 @@ class TokenType(Enum):
     String = 9,
     Cond = 10,
     Block = 11,
+    EOF = 12,
 
 
 class Token:

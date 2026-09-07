@@ -119,4 +119,6 @@ class Lexer:
                 tokens.append(self.key_or_id())
             self.idx += 1
 
+        tokens.append(Token("eof", 0, TokenType.EOF))
+
         return tokens
