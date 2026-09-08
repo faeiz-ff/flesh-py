@@ -58,6 +58,12 @@ def test_boolean():
     assert tokens[1].ty == TokenType.Falsity
 
 
+def test_comments():
+    lexer = Lexer()
+    tokens = lexer.lex("#t ; whatever is written here")
+    assert len(tokens) == 2  # plus eof
+
+
 def test_program():
     lexer = Lexer()
 

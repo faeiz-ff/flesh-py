@@ -72,6 +72,10 @@ class Lexer:
         while curr is not None and curr.isspace():
             self.idx += 1
             curr = self.curr()
+        if curr is not None and curr == ';':
+            while curr is not None and curr != '\n':
+                self.idx += 1
+                curr = self.curr()
 
     def string(self) -> Token:
         self.idx += 1  # consume the first quote
@@ -108,7 +112,14 @@ class Lexer:
         self.text = text
 
         while self.idx < len(self.text):
-            self.skip_whitespace()
+            curr = self.curr()
+            while curr is not None and curr.isspace():
+                self.skip_whitespace()
+                curr = self.curr()
+
+            if curr is None:
+                break
+
             lexeme = self.text[self.idx]
 
             if lexeme.isdigit():
