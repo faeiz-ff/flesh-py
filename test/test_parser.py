@@ -2,7 +2,6 @@ import fleshpy.ast as ast
 
 from fleshpy.lexer import Lexer
 from fleshpy.parser import Parser
-from fleshpy.token import Token, TokenType
 
 
 def get_tree(text: str) -> ast.Program:
@@ -118,5 +117,3 @@ def test_let():
     assert isinstance(let.defs[1][1], ast.IntLiteral)
     assert isinstance(let.body, ast.Begin)
     assert isinstance(let.body.expr_list[0], ast.Application)
-
-
