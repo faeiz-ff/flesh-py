@@ -49,6 +49,12 @@ def test_string():
     assert tokens[1].ty == TokenType.String
     assert tokens[1].lexeme == '"escaped"'
 
+    tokens = lexer.lex("(display \"a\")")
+    assert tokens[0].ty == TokenType.LParen
+    assert tokens[1].ty == TokenType.ID
+    assert tokens[2].ty == TokenType.String
+    assert tokens[3].ty == TokenType.RParen
+
 
 def test_boolean():
     lexer = Lexer()

@@ -102,8 +102,6 @@ class Lexer:
                 "Expecting a closing double quote to end string"
             )
 
-        self.idx += 1  # consume the second quote
-
         return Token("".join(lexeme), begin, TokenType.String)
 
     def lex(self, text: str) -> List[Token]:
