@@ -6,7 +6,7 @@ class Environment[T]:
     def __init__(
         self,
         symbols: Dict[str, T] | None = None,
-        parent: Environment | None = None
+        parent: Environment[T] | None = None
     ):
         self.parent = parent
         self.symbols: Dict[str, T] = {} if symbols is None else symbols
@@ -19,15 +19,4 @@ class Environment[T]:
         return value
 
     def set(self, key: str, value: T):
-        if key in self.symbols:
-            self.symbols[key] = value
-        elif self.parent is not None:
-            self.parent.set(key, value)
-
-    def has(self, key: str) -> bool:
-        if key in self.symbols:
-            return True
-        elif self.parent is not None:
-            self.parent.has(key)
-
-        return False
+        self.symbols[key] = value
