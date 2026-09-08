@@ -36,7 +36,13 @@ class Parser:
             self.raiseSyntaxError("Expecting '" + ty.__str__() +
                                   "' but found '" + found_token.ty.__str__())
 
-    def lambda_param(self) -> Tuple[List[Token], bool]:
+    def define_lambda(self) -> ast.Definition:
+        self.consume(TokenType.LParen)
+        name = self.curr()
+        if name is None:
+            self.raiseSyntaxError("Name expected after 'define' keyword")
+        self.idx += 1
+
         params: List[Token] = []
         variadic = False
 
@@ -51,22 +57,13 @@ class Parser:
                 tok = self.tokens[self.idx]
                 self.idx += 1
                 variadic = True
+                params.append(tok)
                 break
 
             params.append(tok)
             self.consume(TokenType.ID)
 
         self.consume(TokenType.RParen)
-        return (params, variadic)
-
-    def define_lambda(self) -> ast.Definition:
-        self.consume(TokenType.LParen)
-        name = self.curr()
-        if name is None:
-            self.raiseSyntaxError("Name expected after 'define' keyword")
-        self.idx += 1
-
-        (params, variadic) = self.lambda_param()
 
         fun = ast.Lambda(params, ast.Begin(self.expression_list()), variadic)
 
@@ -120,9 +117,34 @@ class Parser:
         return ast.Begin(asts)
 
     def lambda_expr(self) -> ast.Lambda:
-        self.consume(TokenType.LParen)
+        params: List[Token] = []
+        variadic = False
 
-        (params, variadic) = self.lambda_param()
+        if self.check(TokenType.ID):
+            params.append(self.tokens[self.idx])
+            variadic = True
+            self.idx += 1
+        else:
+            self.consume(TokenType.LParen)
+
+            while not self.check(TokenType.RParen):
+                tok = self.tokens[self.idx]
+                if self.check(TokenType.Dot):
+                    self.idx += 1
+                    if not self.check(TokenType.ID):
+                        self.raiseSyntaxError(
+                            "Expecting ID after variadic declaration"
+                        )
+                    tok = self.tokens[self.idx]
+                    self.idx += 1
+                    variadic = True
+                    params.append(tok)
+                    break
+
+                params.append(tok)
+                self.consume(TokenType.ID)
+
+            self.consume(TokenType.RParen)
 
         body = ast.Begin(self.expression_list())
         return ast.Lambda(params, body, variadic)
