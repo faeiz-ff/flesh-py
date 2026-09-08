@@ -64,6 +64,7 @@ class Parser:
         name = self.curr()
         if name is None:
             self.raiseSyntaxError("Name expected after 'define' keyword")
+        self.idx += 1
 
         (params, variadic) = self.lambda_param()
 
