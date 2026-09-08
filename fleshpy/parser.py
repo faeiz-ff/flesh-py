@@ -36,24 +36,38 @@ class Parser:
             self.raiseSyntaxError("Expecting '" + ty.__str__() +
                                   "' but found '" + found_token.ty.__str__())
 
+    def lambda_param(self) -> Tuple[List[Token], bool]:
+        params: List[Token] = []
+        variadic = False
+
+        while not self.check(TokenType.RParen):
+            tok = self.tokens[self.idx]
+            if self.check(TokenType.Dot):
+                self.idx += 1
+                if not self.check(TokenType.ID):
+                    self.raiseSyntaxError(
+                        "Expecting ID after variadic declaration"
+                    )
+                tok = self.tokens[self.idx]
+                self.idx += 1
+                variadic = True
+                break
+
+            params.append(tok)
+            self.consume(TokenType.ID)
+
+        self.consume(TokenType.RParen)
+        return (params, variadic)
+
     def define_lambda(self) -> ast.Definition:
         self.consume(TokenType.LParen)
         name = self.curr()
         if name is None:
             self.raiseSyntaxError("Name expected after 'define' keyword")
 
-        args: List[Token] = []
+        (params, variadic) = self.lambda_param()
 
-        curr = self.curr()
-        while curr is not None and \
-                curr.ty != TokenType.RParen:
-            args.append(curr)
-            self.idx += 1
-            curr = self.curr()
-
-        self.consume(TokenType.RParen)
-
-        fun = ast.Lambda(args, ast.Begin(self.expression_list()))
+        fun = ast.Lambda(params, ast.Begin(self.expression_list()), variadic)
 
         return ast.Definition(name, fun)
 
@@ -107,15 +121,12 @@ class Parser:
     def lambda_expr(self) -> ast.Lambda:
         self.consume(TokenType.LParen)
 
-        params: List[Token] = []
-        while not self.check(TokenType.RParen):
-            params.append(self.tokens[self.idx])
-            self.consume(TokenType.ID)
+        (params, variadic) = self.lambda_param()
 
         self.consume(TokenType.RParen)
 
         body = ast.Begin(self.expression_list())
-        return ast.Lambda(params, body)
+        return ast.Lambda(params, body, variadic)
 
     def let(self) -> ast.Let:
         defs: List[Tuple[Token, ast.AST]] = []

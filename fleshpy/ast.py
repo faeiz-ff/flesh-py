@@ -105,9 +105,10 @@ class Begin(AST):
 
 
 class Lambda(AST):
-    def __init__(self, args: List[Token], body: AST):
+    def __init__(self, args: List[Token], body: AST, variadic: bool):
         self.args = args
         self.body = body
+        self.variadic = variadic
 
     def accept[T](self, visitor: Visitor[T]) -> T:
         return visitor.visit_lambda(self)

@@ -117,6 +117,8 @@ class Lexer:
                 tokens.append(Token(lexeme, self.idx, TokenType.LParen))
             elif lexeme == ')':
                 tokens.append(Token(lexeme, self.idx, TokenType.RParen))
+            elif lexeme == '.':
+                tokens.append(Token(lexeme, self.idx, TokenType.Dot))
             elif lexeme == '"':
                 tokens.append(self.string())
             else:

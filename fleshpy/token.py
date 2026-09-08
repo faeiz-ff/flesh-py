@@ -19,6 +19,7 @@ class TokenType(Enum):
     Truth = auto(),
     Falsity = auto(),
     Nil = auto(),
+    Dot = auto(),
 
     def __repr__(self) -> str:
         return self.__str__()
@@ -42,6 +43,7 @@ class TokenType(Enum):
             case TokenType.Truth: return "True"
             case TokenType.Falsity: return "False"
             case TokenType.Nil: return "Nil"
+            case TokenType.Dot: return "."
 
 
 class Token:
