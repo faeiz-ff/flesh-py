@@ -8,3 +8,8 @@ class FleshSyntaxError(FleshError):
         self.text = text
         self.at = at
         self.msg = msg
+
+
+class FleshRuntimeError(FleshError):
+    def __init__(self, msg: str):
+        self.msg = msg
