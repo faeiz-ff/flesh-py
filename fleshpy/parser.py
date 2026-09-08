@@ -124,8 +124,6 @@ class Parser:
 
         (params, variadic) = self.lambda_param()
 
-        self.consume(TokenType.RParen)
-
         body = ast.Begin(self.expression_list())
         return ast.Lambda(params, body, variadic)
 
